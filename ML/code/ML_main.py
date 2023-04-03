@@ -111,6 +111,8 @@ def non_iid(model_names, numClasses, numParams, softmax_test, iterations=3000,
                 delta[k, :], losses[k] = list_of_models[k].privateFun(weights,
                    batch_size=batch_size, num_iterations=fed_avg_size)
 
+                # print("delta[k, :]", delta[k, :])
+
                 # normalize delta
                 if np.linalg.norm(delta[k, :]) > 1:
                     delta[k, :] = delta[k, :] / np.linalg.norm(delta[k, :])
@@ -126,6 +128,10 @@ def non_iid(model_names, numClasses, numParams, softmax_test, iterations=3000,
     
                 delta[k, :], losses[k] = list_of_models[k].privateFun(weights, 
                     batch_size=batch_size, num_iterations=fed_avg_size, iter_num=i)
+
+                # print("i", i) # 0 - 999
+                # print("k", k) # 0 - 14
+                # print("delta[k, :]", delta[k, :].shape) # (7840,)
 
                 # normalize delta
                 if np.linalg.norm(delta[k, :]) > 1:
